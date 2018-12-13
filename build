@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+mkdir -p dist
+lsc -cbp src/ldquery.ls > dist/ldquery.js
+uglifyjs dist/ldquery.js > dist/ldquery.min.js
