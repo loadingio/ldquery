@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
 mkdir -p dist
-lsc -cbp src/ldquery.ls > dist/ldquery.js
-uglifyjs dist/ldquery.js > dist/ldquery.min.js
+echo "Transpiling LiveScript"
+./node_modules/.bin/lsc -cbp src/ldq.ls > dist/ldq.js
+echo "Uglifying ldq.js"
+./node_Modules/.bin/uglifyjs dist/ldq.js > dist/ldq.min.js
+echo "Done."
