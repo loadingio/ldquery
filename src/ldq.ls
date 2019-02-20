@@ -22,9 +22,17 @@ if !(ld$?) =>
 
   # ldQ: direct function call
   for k,v of ld$obj.prototype => ((k,v) -> ld$[k] = (z, ...args) -> v.apply z, args)(k,v)
-  ld$.fetch = (u, o, opt={}) -> fetch(u, o).then ->
-    if !(it and it.ok) => e = (new Error!) <<< {data: it}; throw e
-    else if opt.type? => it[opt.type]! else it
+  ld$ <<< do
+    fetch: (u, o, opt={}) -> fetch(u, o).then ->
+      if !(it and it.ok) => e = (new Error!) <<< {data: it}; throw e
+      else if opt.type? => it[opt.type]! else it
+    create: (o) ->
+      n = document.createElement(o.name)
+      n.style <<< o.style if o.style
+      n.classList.add.apply n.classList, o.className if o.className
+      n.innerText = o.text if o.text
+      n.innerHTML = o.html if o.html
+      n
 
   # ldQ: pollute Native DOM
   # HTMLElement.prototype <<< ld$obj.prototype

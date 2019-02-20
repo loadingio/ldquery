@@ -66,20 +66,39 @@ if (!(typeof ld$ != 'undefined' && ld$ !== null)) {
     v = ref$[k];
     fn$(k, v);
   }
-  ld$.fetch = function(u, o, opt){
-    opt == null && (opt = {});
-    return fetch(u, o).then(function(it){
-      var e, ref$;
-      if (!(it && it.ok)) {
-        e = (ref$ = new Error(), ref$.data = it, ref$);
-        throw e;
-      } else if (opt.type != null) {
-        return it[opt.type]();
-      } else {
-        return it;
+  import$(ld$, {
+    fetch: function(u, o, opt){
+      opt == null && (opt = {});
+      return fetch(u, o).then(function(it){
+        var e, ref$;
+        if (!(it && it.ok)) {
+          e = (ref$ = new Error(), ref$.data = it, ref$);
+          throw e;
+        } else if (opt.type != null) {
+          return it[opt.type]();
+        } else {
+          return it;
+        }
+      });
+    },
+    create: function(o){
+      var n;
+      n = document.createElement(o.name);
+      if (o.style) {
+        import$(n.style, o.style);
       }
-    });
-  };
+      if (o.className) {
+        n.classList.add.apply(n.classList, o.className);
+      }
+      if (o.text) {
+        n.innerText = o.text;
+      }
+      if (o.html) {
+        n.innerHTML = o.html;
+      }
+      return n;
+    }
+  });
 }
 function import$(obj, src){
   var own = {}.hasOwnProperty;
