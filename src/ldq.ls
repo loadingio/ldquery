@@ -4,6 +4,7 @@ if !(ld$?) =>
   ld$ = -> new ld$obj it
   ld$obj.prototype = do
     find: (s, n) ->
+      if s instanceof HTMLElement => return s
       if n == 0 => return @querySelector s
       ret = Array.from(@querySelectorAll s)
       if n => ret[n] else ret
@@ -15,6 +16,7 @@ if !(ld$?) =>
       n = @; while n and n != e and !n.matches(s) => n = n.parentNode # must match s selector
       if n == e and !e.matches(s) => return null
       return n
+    cls: (o) -> for k,v of o => @classList[if v => \add else \remove] k
     attr: (n,v) -> if !v? => @getAttribute(n) else @setAttribute n, v
     on: (n,cb) -> @addEventListener n, cb
     remove: -> @parentNode.removeChild @

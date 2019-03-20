@@ -10,6 +10,9 @@ if (!(typeof ld$ != 'undefined' && ld$ !== null)) {
   ld$obj.prototype = {
     find: function(s, n){
       var ret;
+      if (s instanceof HTMLElement) {
+        return s;
+      }
       if (n === 0) {
         return this.querySelector(s);
       }
@@ -44,6 +47,14 @@ if (!(typeof ld$ != 'undefined' && ld$ !== null)) {
         return null;
       }
       return n;
+    },
+    cls: function(o){
+      var k, v, results$ = [];
+      for (k in o) {
+        v = o[k];
+        results$.push(this.classList[v ? 'add' : 'remove'](k));
+      }
+      return results$;
     },
     attr: function(n, v){
       if (v == null) {
