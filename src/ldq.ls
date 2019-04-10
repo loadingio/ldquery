@@ -13,8 +13,8 @@ if !(ld$?) =>
     parent: (s, e = document) ->
       n = @; while n and n != e => n = n.parentNode # must under e
       if n != e => return null
-      n = @; while n and n != e and !n.matches(s) => n = n.parentNode # must match s selector
-      if n == e and !e.matches(s) => return null
+      n = @; while n and n != e and n.matches and !n.matches(s) => n = n.parentNode # must match s selector
+      if n == e and (!e.matches or !e.matches(s)) => return null
       return n
     cls: (o) -> for k,v of o => @classList[if v => \add else \remove] k
     attr: (n,v) -> if !v? => @getAttribute(n) else @setAttribute n, v

@@ -40,10 +40,10 @@ if (!(typeof ld$ != 'undefined' && ld$ !== null)) {
         return null;
       }
       n = this;
-      while (n && n !== e && !n.matches(s)) {
+      while (n && n !== e && n.matches && !n.matches(s)) {
         n = n.parentNode;
       }
-      if (n === e && !e.matches(s)) {
+      if (n === e && (!e.matches || !e.matches(s))) {
         return null;
       }
       return n;
