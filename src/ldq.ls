@@ -31,17 +31,29 @@ if !(ld$?) =>
   ns = {svg: "http://www.w3.org/2000/svg"}
 
   ld$ <<< do
-    fetch: (u, o, opt={}) -> fetch(u, o).then (v) ->
-      if !(v and v.ok) =>
-        v.clone!text!then (t) -> e = new Error("#{v.status} #t") <<< {data: v}; throw e
-      else if opt.type? => v[opt.type]! else v
+    json: (v) ->
+      try
+        return JSON.parse(v)
+      catch
+        return v
+    fetch: (u, o={}, opt={}) ->
+      c = {} <<< o
+      if opt.json =>
+        c <<< body: JSON.stringify(opt.json)
+        c.{}headers['Content-Type'] = 'application/json; charset=UTF-8'
+      if ld$.fetch.headers => c.{}headers <<< ld$.fetch.headers
+      fetch(u, c) .then (v) ->
+        if !(v and v.ok) =>
+          v.clone!text!then (t) -> e = new Error("#{v.status} #t") <<< {data: t}; throw e
+        else if opt.type? => v[opt.type]! else v
     create: (o) ->
       n = if o.ns => document.createElementNS(ns[o.ns] or o.ns, o.name) else document.createElement(o.name)
       n.style <<< o.style if o.style
+      [[k,v] for k,v of o.attr].map((p) -> n.setAttribute p.0, p.1) if o.attr
       n.classList.add.apply n.classList, o.className if o.className
       n.innerText = o.text if o.text
       n.innerHTML = o.html if o.html
       n
-
+  ld$.fetch.headers = {}
   # ldQ: pollute Native DOM
   # HTMLElement.prototype <<< ld$obj.prototype
