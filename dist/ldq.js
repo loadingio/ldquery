@@ -98,13 +98,23 @@ if (!(typeof ld$ != 'undefined' && ld$ !== null)) {
       }
     },
     fetch: function(u, o, opt){
-      var c;
+      var c, that, k, v;
       o == null && (o = {});
       opt == null && (opt = {});
       c = import$({}, o);
       if (opt.json) {
         c.body = JSON.stringify(opt.json);
         (c.headers || (c.headers = {}))['Content-Type'] = 'application/json; charset=UTF-8';
+      }
+      if (that = opt.params) {
+        u += "?" + (function(){
+          var ref$, results$ = [];
+          for (k in ref$ = that) {
+            v = ref$[k];
+            results$.push(k + "=" + encodeURIComponent(v));
+          }
+          return results$;
+        }()).join('&');
       }
       if (ld$.fetch.headers) {
         import$(c.headers || (c.headers = {}), ld$.fetch.headers);

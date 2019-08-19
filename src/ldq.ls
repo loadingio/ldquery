@@ -41,6 +41,7 @@ if !(ld$?) =>
       if opt.json =>
         c <<< body: JSON.stringify(opt.json)
         c.{}headers['Content-Type'] = 'application/json; charset=UTF-8'
+      if opt.params => u += ("?" + ["#k=#{encodeURIComponent(v)}" for k,v of that].join(\&))
       if ld$.fetch.headers => c.{}headers <<< ld$.fetch.headers
       fetch(u, c) .then (v) ->
         if !(v and v.ok) =>
