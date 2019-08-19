@@ -68,6 +68,11 @@ Common ldQuery Options:
      `ld$.fetch("url", {}, {json: {data: 1}})`
    - is the same with this:
      `ld$.fetch("url", {body: "{data: 1}", headers: {'Content-Type': 'application/json; charset=UTF-8'}})`
+ * params: shorthand for setting get params. expect an object with key/value pair. will convert it to querystring.
+   - this:
+     `ld$.fetch("url", {}, {params: {qs: "some text"}}
+   - is the same with this:
+     `ld$.fetch("url?qs=some%20text", {}, {})
 
 
 You can also config global headers by updating values in ld$.fetch.headers:
@@ -76,6 +81,14 @@ You can also config global headers by updating values in ld$.fetch.headers:
     ld$.fetch.headers["X-CSRF-TOKEN"] = ...
 `
 
+
+## Compatibility
+
+ldQuery uses following modern web features:
+
+ * fetch api - not support in IE, Older Edge ( <= 13). Use polyfill to support to IE >= 11
+ * classList - not support well in IE. Use Polyfill to fix this.
+ * Array.from - not supported in IE. Use Polyfill to fix this.
 
 
 ## License
