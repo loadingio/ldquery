@@ -98,39 +98,46 @@ if (!(typeof ld$ != 'undefined' && ld$ !== null)) {
       }
     },
     fetch: function(u, o, opt){
-      var c, that, k, v;
       o == null && (o = {});
       opt == null && (opt = {});
-      c = import$({}, o);
-      if (opt.json) {
-        c.body = JSON.stringify(opt.json);
-        (c.headers || (c.headers = {}))['Content-Type'] = 'application/json; charset=UTF-8';
-      }
-      if (that = opt.params) {
-        u += "?" + (function(){
-          var ref$, results$ = [];
-          for (k in ref$ = that) {
-            v = ref$[k];
-            results$.push(k + "=" + encodeURIComponent(v));
-          }
-          return results$;
-        }()).join('&');
-      }
-      if (ld$.fetch.headers) {
-        import$(c.headers || (c.headers = {}), ld$.fetch.headers);
-      }
-      return fetch(u, c).then(function(v){
-        if (!(v && v.ok)) {
-          return v.clone().text().then(function(t){
-            var e, ref$;
-            e = (ref$ = new Error(v.status + " " + t), ref$.data = t, ref$);
-            throw e;
-          });
-        } else if (opt.type != null) {
-          return v[opt.type]();
-        } else {
-          return v;
+      return new Promise(function(res, rej){
+        var c, that, k, v, h;
+        c = import$({}, o);
+        if (opt.json) {
+          c.body = JSON.stringify(opt.json);
+          (c.headers || (c.headers = {}))['Content-Type'] = 'application/json; charset=UTF-8';
         }
+        if (that = opt.params) {
+          u = u + ("?" + (function(){
+            var ref$, results$ = [];
+            for (k in ref$ = that) {
+              v = ref$[k];
+              results$.push(k + "=" + encodeURIComponent(v));
+            }
+            return results$;
+          }()).join('&'));
+        }
+        if (ld$.fetch.headers) {
+          import$(c.headers || (c.headers = {}), ld$.fetch.headers);
+        }
+        h = setTimeout(function(){
+          rej(new Error("timeout"));
+          return h = null;
+        }, opt.timeout || 20 * 1000);
+        return fetch(u, c).then(function(v){
+          if (!h) {
+            return;
+          }
+          clearTimeout(h);
+          if (!(v && v.ok)) {
+            return v.clone().text().then(function(t){
+              var ref$;
+              return rej((ref$ = new Error(v.status + " " + t), ref$.data = t, ref$));
+            });
+          } else {
+            return res(opt.type != null ? v[opt.type]() : v);
+          }
+        });
       });
     },
     create: function(o){

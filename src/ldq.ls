@@ -36,17 +36,22 @@ if !(ld$?) =>
         return JSON.parse(v)
       catch
         return v
-    fetch: (u, o={}, opt={}) ->
+    fetch: (u, o={}, opt={}) -> new Promise (res, rej) ->
       c = {} <<< o
       if opt.json =>
         c <<< body: JSON.stringify(opt.json)
         c.{}headers['Content-Type'] = 'application/json; charset=UTF-8'
-      if opt.params => u += ("?" + ["#k=#{encodeURIComponent(v)}" for k,v of that].join(\&))
+      if opt.params => u := u + ("?" + ["#k=#{encodeURIComponent(v)}" for k,v of that].join(\&))
       if ld$.fetch.headers => c.{}headers <<< ld$.fetch.headers
-      fetch(u, c) .then (v) ->
-        if !(v and v.ok) =>
-          v.clone!text!then (t) -> e = new Error("#{v.status} #t") <<< {data: t}; throw e
-        else if opt.type? => v[opt.type]! else v
+      h = setTimeout (->
+        rej new Error("timeout")
+        h := null
+      ), (opt.timeout or (20 * 1000))
+      fetch(u, c).then (v) ->
+        if !h => return
+        clearTimeout h
+        if !(v and v.ok) => v.clone!text!then (t) -> rej(new Error("#{v.status} #t") <<< {data: t})
+        else res(if opt.type? => v[opt.type]! else v)
     create: (o) ->
       n = if o.ns => document.createElementNS(ns[o.ns] or o.ns, o.name) else document.createElement(o.name)
       n.style <<< o.style if o.style
