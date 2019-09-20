@@ -132,7 +132,7 @@ if (!(typeof ld$ != 'undefined' && ld$ !== null)) {
           if (!(v && v.ok)) {
             return v.clone().text().then(function(t){
               var ref$;
-              return rej((ref$ = new Error(v.status + " " + t), ref$.data = t, ref$));
+              return rej((ref$ = new Error(v.status + " " + t), ref$.data = t, ref$.status = v.status, ref$));
             });
           } else {
             return res(opt.type != null ? v[opt.type]() : v);
