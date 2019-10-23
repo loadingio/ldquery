@@ -131,8 +131,14 @@ if (!(typeof ld$ != 'undefined' && ld$ !== null)) {
           clearTimeout(h);
           if (!(v && v.ok)) {
             return v.clone().text().then(function(t){
-              var ref$;
-              return rej((ref$ = new Error(v.status + " " + t), ref$.data = t, ref$.status = v.status, ref$));
+              var json, e, ref$;
+              try {
+                json = JSON.parse(t);
+              } catch (e$) {
+                e = e$;
+                json = null;
+              }
+              return rej((ref$ = new Error(v.status + " " + t), ref$.data = t, ref$.status = v.status, ref$.json = json, ref$));
             });
           } else {
             return res(opt.type != null ? v[opt.type]() : v);

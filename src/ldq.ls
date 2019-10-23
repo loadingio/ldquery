@@ -50,7 +50,12 @@ if !(ld$?) =>
       fetch(u, c).then (v) ->
         if !h => return
         clearTimeout h
-        if !(v and v.ok) => v.clone!text!then (t) -> rej(new Error("#{v.status} #t") <<< {data: t, status: v.status})
+        if !(v and v.ok) => v.clone!text!then (t) ->
+          try
+            json = JSON.parse(t)
+          catch e
+            json = null
+          rej(new Error("#{v.status} #t") <<< {data: t, status: v.status, json: json})
         else res(if opt.type? => v[opt.type]! else v)
     create: (o) ->
       n = if o.ns => document.createElementNS(ns[o.ns] or o.ns, o.name) else document.createElement(o.name)
