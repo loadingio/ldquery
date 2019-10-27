@@ -1,6 +1,6 @@
 {
   "author": "zbryikt",
-  "name": "ldQuery",
+  "name": "ldquery",
   "description": "lite jQuery-like HTMLElement shorthands",
   "license": "MIT",
   "version": "1.0.0",
