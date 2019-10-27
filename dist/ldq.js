@@ -121,7 +121,8 @@ if (!(typeof ld$ != 'undefined' && ld$ !== null)) {
           import$(c.headers || (c.headers = {}), ld$.fetch.headers);
         }
         h = setTimeout(function(){
-          rej(new Error("timeout"));
+          var ref$;
+          rej((ref$ = new Error("timeout"), ref$.id = 1006, ref$.message = "timeout", ref$.name = "ldError", ref$));
           return h = null;
         }, opt.timeout || 20 * 1000);
         return fetch(u, c).then(function(v){
@@ -131,14 +132,17 @@ if (!(typeof ld$ != 'undefined' && ld$ !== null)) {
           clearTimeout(h);
           if (!(v && v.ok)) {
             return v.clone().text().then(function(t){
-              var json, e, ref$;
+              var json, ref$, e;
               try {
                 json = JSON.parse(t);
+                if (json && json.name === 'ldError') {
+                  return rej(import$((ref$ = new Error(v.status + " " + t), ref$.data = t, ref$.code = v.status, ref$), json));
+                }
               } catch (e$) {
                 e = e$;
                 json = null;
               }
-              return rej((ref$ = new Error(v.status + " " + t), ref$.data = t, ref$.status = v.status, ref$.json = json, ref$));
+              return rej((ref$ = new Error(v.status + " " + t), ref$.data = t, ref$.json = json, ref$.id = v.status, ref$.code = v.status, ref$.name = 'ldError', ref$.message = t, ref$));
             });
           } else {
             return res(opt.type != null ? v[opt.type]() : v);

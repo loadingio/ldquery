@@ -44,7 +44,8 @@ if !(ld$?) =>
       if opt.params => u := u + ("?" + ["#k=#{encodeURIComponent(v)}" for k,v of that].join(\&))
       if ld$.fetch.headers => c.{}headers <<< ld$.fetch.headers
       h = setTimeout (->
-        rej new Error("timeout")
+        # see "error" section in README.
+        rej (new Error("timeout") <<< {id: 1006, message: "timeout", name: "ldError"})
         h := null
       ), (opt.timeout or (20 * 1000))
       fetch(u, c).then (v) ->
@@ -53,9 +54,18 @@ if !(ld$?) =>
         if !(v and v.ok) => v.clone!text!then (t) ->
           try
             json = JSON.parse(t)
+            if (json and json.name == \ldError) =>
+              # see "error" section in README.
+              return rej new Error("#{v.status} #t") <<< {data: t, code: v.status} <<< json
           catch e
             json = null
-          rej(new Error("#{v.status} #t") <<< {data: t, status: v.status, json: json})
+          # see "error" section in README.
+          return rej(
+            new Error("#{v.status} #t") <<< {
+              data: t, json: json,
+              id: v.status, code: v.status, name: \ldError, message: t
+            }
+          )
         else res(if opt.type? => v[opt.type]! else v)
     create: (o) ->
       n = if o.ns => document.createElementNS(ns[o.ns] or o.ns, o.name) else document.createElement(o.name)

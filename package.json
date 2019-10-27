@@ -1,9 +1,9 @@
 {
-  "author": "Kirby Wu",
+  "author": "zbryikt",
   "name": "ldQuery",
   "description": "lite jQuery-like HTMLElement shorthands",
   "license": "MIT",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "homepage": "https://github.com/loadingio/ldQuery",
   "repository": {
     "type": "git",

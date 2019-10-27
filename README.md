@@ -73,6 +73,7 @@ Common ldQuery Options:
      `ld$.fetch("url", {}, {params: {qs: "some text"}}
    - is the same with this:
      `ld$.fetch("url?qs=some%20text", {}, {})
+ * timeout: elapsed time ( in milliseconds ) for a timeout error to be fired.
 
 
 You can also config global headers by updating values in ld$.fetch.headers:
@@ -80,6 +81,18 @@ You can also config global headers by updating values in ld$.fetch.headers:
 `
     ld$.fetch.headers["X-CSRF-TOKEN"] = ...
 `
+
+### Error Handling
+
+ld$.fetch doesn't depend on ldError, but it indeed returns ldError compatible errors, with following fields:
+
+ * name: ldError
+ * id: error code
+ * code: http code. ( optional )
+ * data: returned data
+ * json: parsed json from returned data, if any ( optional )
+
+When request failed, ld$.fetch will try to parse returned data as json, and check if there is a field "name" with value "ldError". If "ldError" name field exists, this object will be used directly to construct the Error object.
 
 
 ## Compatibility
