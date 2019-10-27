@@ -59,6 +59,7 @@ It also provides in wrapper style:
 While it's not a good idea but you can pollute the native DOM for a more intuitive way to use these functions:
 
 `
+    # in livescript syntax
     HTMLElement.prototype <<< ld$obj.prototype
 `
 
