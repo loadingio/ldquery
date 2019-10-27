@@ -2,6 +2,28 @@
 
 lightweight DOM Helpers.
 
+
+## Installation
+
+install via npm:
+
+    npm install @loadingio/ldquery
+
+or, download it from github:
+    https://github.com/loadingio/ldQuery/releases/latest/download/ldq.js
+    https://github.com/loadingio/ldQuery/releases/latest/download/ldq.min.js
+
+or use it directly via CDN:
+
+    https://cdn.jsdelivr.net/gh/loadingio/ldQuery@v1.0.0/dist/ldq.js
+    https://cdn.jsdelivr.net/gh/loadingio/ldQuery@v1.0.0/dist/ldq.min.js
+
+
+in you html, include it directly with `<script>` tag:
+
+    <script src="https://cdn.jsdelivr.net/gh/loadingio/ldQuery@v1.0.0/dist/ldq.min.js"></script>
+
+
 ## Usage
 
 ldQuery provides following functions:
