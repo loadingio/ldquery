@@ -40,7 +40,7 @@ if (!(typeof ld$ != 'undefined' && ld$ !== null)) {
         return null;
       }
       n = this;
-      while (n && n !== e && n.matches && !n.matches(s)) {
+      while (n && n !== e && (!n.matches || (n.matches && !n.matches(s)))) {
         n = n.parentNode;
       }
       if (n === e && (!e.matches || !e.matches(s))) {
@@ -74,7 +74,9 @@ if (!(typeof ld$ != 'undefined' && ld$ !== null)) {
       return this.addEventListener(n, cb);
     },
     remove: function(){
-      return this.parentNode.removeChild(this);
+      if (this.parentNode) {
+        return this.parentNode.removeChild(this);
+      }
     },
     insertAfter: function(n, s){
       return this.insertBefore(n, s.nextSibling);

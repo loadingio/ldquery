@@ -13,7 +13,8 @@ if !(ld$?) =>
     parent: (s, e = document) ->
       n = @; while n and n != e => n = n.parentNode # must under e
       if n != e => return null
-      n = @; while n and n != e and n.matches and !n.matches(s) => n = n.parentNode # must match s selector
+      # must match s selector
+      n = @; while n and n != e and (!n.matches or (n.matches and !n.matches(s))) => n = n.parentNode
       if n == e and (!e.matches or !e.matches(s)) => return null
       return n
     cls: (o) -> for k,v of o => @classList[if v => \add else \remove] k
@@ -21,7 +22,7 @@ if !(ld$?) =>
       if typeof(n) == \object => (for k,v of n => @setAttribute(k,v))
       else if !v? => @getAttribute(n) else @setAttribute n, v
     on: (n,cb) -> @addEventListener n, cb
-    remove: -> @parentNode.removeChild @
+    remove: -> if @parentNode => @parentNode.removeChild @
     insertAfter: (n, s) -> @insertBefore n, s.nextSibling
 
   # ldQ: direct function call
