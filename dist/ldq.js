@@ -9,18 +9,24 @@ if (!(typeof ld$ != 'undefined' && ld$ !== null)) {
   };
   ld$obj.prototype = {
     find: function(s, n){
-      var ret;
+      var ret, e;
       if (s instanceof HTMLElement) {
         return s;
       }
-      if (n === 0) {
-        return this.querySelector(s);
-      }
-      ret = Array.from(this.querySelectorAll(s));
-      if (n) {
-        return ret[n];
-      } else {
-        return ret;
+      try {
+        if (n === 0) {
+          return this.querySelector(s);
+        }
+        ret = Array.from(this.querySelectorAll(s));
+        if (n) {
+          return ret[n];
+        } else {
+          return ret;
+        }
+      } catch (e$) {
+        e = e$;
+        console.warn("ld$.find exception: " + s + " / " + n + " under ", this);
+        throw e;
       }
     },
     index: function(){

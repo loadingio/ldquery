@@ -5,9 +5,13 @@ if !(ld$?) =>
   ld$obj.prototype = do
     find: (s, n) ->
       if s instanceof HTMLElement => return s
-      if n == 0 => return @querySelector s
-      ret = Array.from(@querySelectorAll s)
-      if n => ret[n] else ret
+      try
+        if n == 0 => return @querySelector s
+        ret = Array.from(@querySelectorAll s)
+        if n => ret[n] else ret
+      catch e
+        console.warn "ld$.find exception: #s / #n under ", @
+        throw e
     index: -> Array.from(@parentNode.childNodes).indexOf(@)
     child: -> Array.from(@childNodes)
     parent: (s, e = document) ->
