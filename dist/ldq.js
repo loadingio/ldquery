@@ -9,15 +9,18 @@ if (!(typeof ld$ != 'undefined' && ld$ !== null)) {
   };
   ld$obj.prototype = {
     find: function(s, n){
-      var ret, e;
+      var r, ref$, ret, e;
+      if (!(r = this).querySelector) {
+        ref$ = [document, r.toString(), s], r = ref$[0], s = ref$[1], n = ref$[2];
+      }
       if (s instanceof HTMLElement) {
         return s;
       }
       try {
         if (n === 0) {
-          return this.querySelector(s);
+          return r.querySelector(s);
         }
-        ret = Array.from(this.querySelectorAll(s));
+        ret = Array.from(r.querySelectorAll(s));
         if (n) {
           return ret[n];
         } else {
@@ -25,7 +28,7 @@ if (!(typeof ld$ != 'undefined' && ld$ !== null)) {
         }
       } catch (e$) {
         e = e$;
-        console.warn("ld$.find exception: " + s + " / " + n + " under ", this);
+        console.warn("ld$.find exception: " + s + " / " + n + " under ", r);
         throw e;
       }
     },
