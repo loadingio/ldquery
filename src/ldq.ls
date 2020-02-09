@@ -36,19 +36,23 @@ if !(ld$?) =>
   # for Creating Element
   ns = {svg: "http://www.w3.org/2000/svg"}
 
+  xhrpar = (u, o, p) ->
+    c = {} <<< o
+    if p.json =>
+      c <<< body: JSON.stringify(p.json)
+      c.{}headers['Content-Type'] = 'application/json; charset=UTF-8'
+    if p.params => u = u + ("?" + ["#k=#{encodeURIComponent(v)}" for k,v of that].join(\&))
+    if ld$.fetch.headers => c.{}headers <<< ld$.fetch.headers
+    return {c, u}
+
   ld$ <<< do
     json: (v) ->
       try
         return JSON.parse(v)
       catch
         return v
-    fetch: (u, o={}, opt={}) -> new Promise (res, rej) ->
-      c = {} <<< o
-      if opt.json =>
-        c <<< body: JSON.stringify(opt.json)
-        c.{}headers['Content-Type'] = 'application/json; charset=UTF-8'
-      if opt.params => u := u + ("?" + ["#k=#{encodeURIComponent(v)}" for k,v of that].join(\&))
-      if ld$.fetch.headers => c.{}headers <<< ld$.fetch.headers
+    fetch: (url, o={}, opt={}) -> new Promise (res, rej) ->
+      {u,c} = xhrpar(url,o,opt)
       h = setTimeout (->
         # see "error" section in README.
         rej (new Error("timeout") <<< {id: 1006, message: "timeout", name: "ldError"})
@@ -81,6 +85,26 @@ if !(ld$?) =>
       n.innerText = o.text if o.text
       n.innerHTML = o.html if o.html
       n
+  ld$.xhr = (url, o = {}, opt = {}) -> new Promise (res, rej) ->
+    {u,c} = xhrpar(url,o,opt)
+    x = new XMLHttpRequest!
+    x.onreadystatechange = ->
+      if x.readyState == XMLHttpRequest.DONE =>
+        if x.status == 200 =>
+          try
+            ret = if opt.type == \json => JSON.parse(x.responseText) else x.responseText
+          catch e
+            return rej new Error(e)
+          return res ret
+        else return rej new Error!
+    x.onloadstart = -> opt.progress {percent: 0, val: 0, len: 0}
+    if opt.progress => x.onprogress = (evt) ->
+      [val,len] = [evt.loaded, evt.total]
+      opt.progress {percent: (val/len), val, len}
+    x.open (c.method or \GET), u, true
+    for k,v of (c.headers or {}) => x.setRequestHeader k, v
+    x.send c.body
+
   ld$.fetch.headers = {}
   # ldQ: pollute Native DOM
   # HTMLElement.prototype <<< ld$obj.prototype
