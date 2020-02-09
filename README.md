@@ -39,7 +39,8 @@ ldQuery provides following functions:
  * on(node, name, callback): addEventListener on event name.
  * remove(node): remove node from parent.
  * insertAfter(node, newNode, oldNode): insert newNode after oldNode under node.
- * fetch: fetch api helper. 
+ * fetch: fetch API helper. 
+ * xhr: XMLHttpRequest API helper.
  * json(data): handy function to convert things to object.
 
 invoke these functions with ld$, e.g., 
@@ -105,6 +106,27 @@ You can also config global headers by updating values in ld$.fetch.headers:
 `
     ld$.fetch.headers["X-CSRF-TOKEN"] = ...
 `
+
+## XMLHttpRequest
+
+While `fetch` is newer than XMLHttpRequest, for now XMLHttpRequest does better in handling progress information. Thus you can use `ld$.xhr` instead of `ld$.fetch` if such information is needed.
+
+Using `xhr` is almost identical with using `fetch`:
+
+`
+    ld$.xhr(<URL>, <RAWOPTION>, <LDQOPTION>)
+      .then ->  ...
+      .catch (e) -> # use e.data to get raw response from fetch
+`
+
+Yet it accepts one additional ldQuery option:
+
+ * progress({percent, val, len}): a callback function accepting progress information as an object
+   - percent: 0 ~ 1, 1 = finished.
+   - val: current progress.
+   - len: expected total progress.
+   - this function has no expected return value.
+
 
 ### Error Handling
 
