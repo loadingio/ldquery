@@ -109,7 +109,11 @@
     ld$.fetch.headers = {}
     # ldQ: pollute Native DOM
     # HTMLElement.prototype <<< ld$obj.prototype
-    if window? => window.ld$ = ld$
+    # fetch = require "node-fetch" makes fetch a local variable
+    # thus we pre-set it with window.fetch for using fetch in client side.
+    if window? =>
+      window.ld$ = ld$
+      fetch = window.fetch
     if module? =>
       if !fetch? => fetch = require "node-fetch"
       module.exports = ld$

@@ -257,9 +257,10 @@ var slice$ = [].slice;
     ld$.fetch.headers = {};
     if (typeof window != 'undefined' && window !== null) {
       window.ld$ = ld$;
+      fetch = window.fetch;
     }
     if (typeof module != 'undefined' && module !== null) {
-      if (typeof fetch == 'undefined' || fetch === null) {
+      if (fetch == null) {
         fetch = require("node-fetch");
       }
       return module.exports = ld$;
