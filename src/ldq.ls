@@ -19,6 +19,8 @@
       parent: (s, e = document) ->
         n = @; while n and n != e => n = n.parentNode # must under e
         if n != e => return null
+        # if no selector - we are testing if s is under e.
+        if !s => return e
         # must match s selector
         n = @; while n and n != e and (!n.matches or (n.matches and !n.matches(s))) => n = n.parentNode
         if n == e and (!e.matches or !e.matches(s)) => return null
