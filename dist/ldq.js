@@ -51,7 +51,7 @@ var slice$ = [].slice;
           return null;
         }
         if (!s) {
-          return e;
+          return this;
         }
         n = this;
         while (n && n !== e && (!n.matches || (n.matches && !n.matches(s)))) {
