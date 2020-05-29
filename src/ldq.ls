@@ -1,6 +1,8 @@
 (->
   if !(ld$?) =>
     # ldQ: wrapper version
+    ajax-err = (s, d, j) ->
+      new Error("#s #d") <<< { data: d, json: j, id: s, code: s, name: \ldError, message: d }
     ld$obj = (dom) -> dom <<< ld$obj.prototype
     ld$ = -> new ld$obj it
     ld$obj.prototype = do
@@ -58,7 +60,7 @@
         {u,c} = xhrpar(url,o,opt)
         h = setTimeout (->
           # see "error" section in README.
-          rej (new Error("timeout") <<< {id: 1006, message: "timeout", name: "ldError"})
+          rej ajax-err(1006, "timeout")
           h := null
         ), (opt.timeout or (20 * 1000))
         fetch(u, c).then (v) ->
@@ -69,17 +71,13 @@
               json = JSON.parse(t)
               if (json and json.name == \ldError) =>
                 # see "error" section in README.
-                return rej new Error("#{v.status} #t") <<< {data: t, code: v.status} <<< json
+                return rej(ajax-err(v.status, t) <<< json)
             catch e
               json = null
             # see "error" section in README.
-            return rej(
-              new Error("#{v.status} #t") <<< {
-                data: t, json: json,
-                id: v.status, code: v.status, name: \ldError, message: t
-              }
-            )
+            return rej( ajax-err(v.status, t, json) )
           else res(if opt.type? => v[opt.type]! else v)
+
       create: (o) ->
         n = if o.ns => document.createElementNS(ns[o.ns] or o.ns, o.name) else document.createElement(o.name)
         n.style <<< o.style if o.style
@@ -97,9 +95,9 @@
             try
               ret = if opt.type == \json => JSON.parse(x.responseText) else x.responseText
             catch e
-              return rej new Error(e)
+              return rej ajax-err(x.status, x.responseText )
             return res ret
-          else return rej new Error!
+          else return rej ajax-err(x.status, x.responseText )
       x.onloadstart = -> opt.progress {percent: 0, val: 0, len: 0}
       if opt.progress => x.onprogress = (evt) ->
         [val,len] = [evt.loaded, evt.total]
