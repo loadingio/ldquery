@@ -99,6 +99,7 @@ Common ldQuery Options:
    - is the same with this:
      `ld$.fetch("url?qs=some%20text", {}, {})
  * timeout: elapsed time ( in milliseconds ) for a timeout error to be fired.
+ * no-default-headers: default null. set this to true to bypass default headers in ld$.fetch.headers.
 
 
 You can also config global headers by updating values in ld$.fetch.headers:

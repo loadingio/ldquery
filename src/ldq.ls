@@ -47,7 +47,7 @@
         c <<< body: JSON.stringify(p.json)
         c.{}headers['Content-Type'] = 'application/json; charset=UTF-8'
       if p.params => u = u + ("?" + ["#k=#{encodeURIComponent(v)}" for k,v of that].join(\&))
-      if ld$.fetch.headers => c.{}headers <<< ld$.fetch.headers
+      if ld$.fetch.headers and !p.no-default-headers => c.{}headers <<< ld$.fetch.headers
       return {c, u}
 
     ld$ <<< do

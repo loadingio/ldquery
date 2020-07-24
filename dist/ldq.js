@@ -124,7 +124,7 @@ var slice$ = [].slice;
           return results$;
         }()).join('&'));
       }
-      if (ld$.fetch.headers) {
+      if (ld$.fetch.headers && !p.noDefaultHeaders) {
         import$(c.headers || (c.headers = {}), ld$.fetch.headers);
       }
       return {
