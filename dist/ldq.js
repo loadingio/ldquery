@@ -213,7 +213,7 @@ var slice$ = [].slice;
       o == null && (o = {});
       opt == null && (opt = {});
       return new Promise(function(res, rej){
-        var ref$, u, c, x, k, v;
+        var ref$, u, c, x, p, k, v;
         ref$ = xhrpar(url, o, opt), u = ref$.u, c = ref$.c;
         x = new XMLHttpRequest();
         x.onreadystatechange = function(){
@@ -242,7 +242,7 @@ var slice$ = [].slice;
           });
         };
         if (opt.progress) {
-          x.onprogress = function(evt){
+          p = function(evt){
             var ref$, val, len;
             ref$ = [evt.loaded, evt.total], val = ref$[0], len = ref$[1];
             return opt.progress({
@@ -251,6 +251,11 @@ var slice$ = [].slice;
               len: len
             });
           };
+          if (x.upload) {
+            x.upload.onprogress = p;
+          } else {
+            x.onprogress = p;
+          }
         }
         x.open(c.method || 'GET', u, true);
         for (k in ref$ = c.headers || {}) {

@@ -99,9 +99,11 @@
             return res ret
           else return rej ajax-err(x.status, x.responseText )
       x.onloadstart = -> opt.progress {percent: 0, val: 0, len: 0}
-      if opt.progress => x.onprogress = (evt) ->
-        [val,len] = [evt.loaded, evt.total]
-        opt.progress {percent: (val/len), val, len}
+      if opt.progress =>
+        p = (evt) ->
+          [val,len] = [evt.loaded, evt.total]
+          opt.progress {percent: (val/len), val, len}
+        if x.upload => x.upload.onprogress = p else x.onprogress = p
       x.open (c.method or \GET), u, true
       for k,v of (c.headers or {}) => x.setRequestHeader k, v
       x.send c.body
