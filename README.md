@@ -49,6 +49,12 @@ invoke these functions with ld$, e.g.,
     ld$.find(document.body, '.btn', 0) 
 `
 
+or ignore the first parameter if it's document:
+
+`
+    ld$.find('.btn', 0)  /* equivalent to ld$.find(document, '.btn', 0) */
+`
+
 
 It also provides in wrapper style:
 
