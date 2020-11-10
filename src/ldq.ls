@@ -83,7 +83,7 @@
         n.style <<< o.style if o.style
         [[k,v] for k,v of o.attr].map((p) -> n.setAttribute p.0, p.1) if o.attr
         n.classList.add.apply n.classList, o.className if o.className
-        n.innerText = o.text if o.text
+        n.appendChild(document.createTextNode o.text) if o.text
         n.innerHTML = o.html if o.html
         n
     ld$.xhr = (url, o = {}, opt = {}) -> new Promise (res, rej) ->

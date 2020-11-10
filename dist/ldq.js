@@ -201,7 +201,7 @@ var slice$ = [].slice;
           n.classList.add.apply(n.classList, o.className);
         }
         if (o.text) {
-          n.innerText = o.text;
+          n.appendChild(document.createTextNode(o.text));
         }
         if (o.html) {
           n.innerHTML = o.html;
