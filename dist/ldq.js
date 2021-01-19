@@ -174,6 +174,9 @@ var slice$ = [].slice;
             } else {
               return res(opt.type != null ? v[opt.type]() : v);
             }
+          })['catch'](function(e){
+            clearTimeout(h);
+            return rej(e);
           });
         });
       },
