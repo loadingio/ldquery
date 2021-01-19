@@ -1,4 +1,4 @@
-# ldQuery
+# ldquery
 
 lightweight DOM Helpers in Vanilla JS.
 
@@ -11,23 +11,23 @@ install via npm:
 
 or, download it from github:
 
-    https://github.com/loadingio/ldQuery/releases/latest/download/ldq.js
-    https://github.com/loadingio/ldQuery/releases/latest/download/ldq.min.js
+    https://github.com/loadingio/ldquery/releases/latest/download/ldq.js
+    https://github.com/loadingio/ldquery/releases/latest/download/ldq.min.js
 
 or use it directly via CDN:
 
-    https://cdn.jsdelivr.net/gh/loadingio/ldQuery@v1.0.0/dist/ldq.js
-    https://cdn.jsdelivr.net/gh/loadingio/ldQuery@v1.0.0/dist/ldq.min.js
+    https://cdn.jsdelivr.net/gh/loadingio/ldquery@v1.1.3/dist/ldq.js
+    https://cdn.jsdelivr.net/gh/loadingio/ldquery@v1.1.3/dist/ldq.min.js
 
 
 in you html, include it directly with `<script>` tag:
 
-    <script src="https://cdn.jsdelivr.net/gh/loadingio/ldQuery@v1.0.0/dist/ldq.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/loadingio/ldquery@v1.1.3/dist/ldq.min.js"></script>
 
 
 ## Usage
 
-ldQuery provides following functions:
+ldquery provides following functions:
 
  * find(node, selector, index):
    shorthand for querySelector and querySelectorAll. return array when index is omitted.
@@ -76,7 +76,7 @@ This could be enabled by remove the comment mark in corresponding line inside ld
 
 ## Fetch
 
-ldQuery wraps fetch api with promise-based error handling and some additional parameter.
+ldquery wraps fetch api with promise-based error handling and some additional parameter.
 
 `
     ld$.fetch(<URL>, <RAWOPTION>, <LDQOPTION>)
@@ -91,7 +91,7 @@ Common raw options:
    - `ld$.fetch "url", {body: JSON.stringify({data: 1})}`
  * headers: header hash. customize your own header here.
 
-Common ldQuery Options:
+Common ldquery Options:
 
  * type: indicate the response data type. could be `text` or `json`.
  * json: json object to pass. shorthand for manually setting headers and stringify object.
@@ -126,7 +126,7 @@ Using `xhr` is almost identical with using `fetch`:
       .catch (e) -> # use e.data to get raw response from fetch
 `
 
-Yet it accepts one additional ldQuery option:
+Yet it accepts one additional ldquery option:
 
  * progress({percent, val, len}): a callback function accepting progress information as an object
    - percent: 0 ~ 1, 1 = finished.
@@ -150,7 +150,7 @@ When request failed, ld$.fetch will try to parse returned data as json, and chec
 
 ## Compatibility
 
-ldQuery uses following modern web features:
+ldquery uses following modern web features:
 
  * fetch api - not support in IE, Older Edge ( <= 13). Use polyfill to support to IE >= 11
  * classList - not support well in IE. Use Polyfill to fix this.
