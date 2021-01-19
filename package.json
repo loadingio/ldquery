@@ -3,7 +3,7 @@
   "name": "@loadingio/ldquery",
   "description": "lite jQuery-like HTMLElement shorthands",
   "license": "MIT",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "homepage": "https://github.com/loadingio/ldQuery",
   "repository": {
     "type": "git",
