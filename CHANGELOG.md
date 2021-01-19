@@ -1,3 +1,8 @@
+# v1.1.3
+
+ - release dist files only.
+
+
 # v1.1.2
 
  - fix bug: `fetch` rejection should be handled and pass to upper rejection function.
