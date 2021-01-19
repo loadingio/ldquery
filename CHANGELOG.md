@@ -1,6 +1,7 @@
 # v1.1.2
 
  - fix bug: `fetch` rejection should be handled and pass to upper rejection function.
+ - upgrade modules
 
 
 # v1.1.1

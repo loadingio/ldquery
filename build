@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
+rm -rf dist
 mkdir -p dist
-echo "Transpiling LiveScript"
-./node_modules/.bin/lsc -cbp src/ldq.ls > dist/ldq.js
+echo "Transpiling src/ldq.ls -> dist/ldq.js ... "
+npx lsc -cp src/ldq.ls > dist/ldq.js
 echo "Uglifying ldq.js"
-./node_Modules/.bin/uglifyjs dist/ldq.js > dist/ldq.min.js
+npx uglifyjs dist/ldq.js > dist/ldq.min.js
 echo "Done."
