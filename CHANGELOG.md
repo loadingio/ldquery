@@ -1,15 +1,22 @@
-# v1.1.3
+# Change Logs
+
+## v2.0.0
+
+ - use `lderror` instead `ldError` ( need lderror >=0.1.0 )
+
+
+## v1.1.3
 
  - release dist files only.
 
 
-# v1.1.2
+## v1.1.2
 
  - fix bug: `fetch` rejection should be handled and pass to upper rejection function.
  - upgrade modules
 
 
-# v1.1.1
+## v1.1.1
 
  - add xhr as fetch counterpart for supporting progressive upload
  - add node-fetch for nodeJS support

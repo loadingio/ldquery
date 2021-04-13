@@ -1,7 +1,7 @@
 if !(ld$?) =>
   # ldQ: wrapper version
   ajax-err = (s, d, j) ->
-    new Error("#s #d") <<< { data: d, json: j, id: s, code: s, name: \ldError, message: d }
+    new Error("#s #d") <<< { data: d, json: j, id: s, code: s, name: \lderror, message: d }
   ld$obj = (dom) -> dom <<< ld$obj.prototype
   ld$ = -> new ld$obj it
   ld$obj.prototype = do
@@ -69,7 +69,7 @@ if !(ld$?) =>
           if !(v and v.ok) => v.clone!text!then (t) ->
             try
               json = JSON.parse(t)
-              if (json and json.name == \ldError) =>
+              if (json and json.name == \lderror) =>
                 # see "error" section in README.
                 return rej(ajax-err(v.status, t) <<< json)
             catch e
