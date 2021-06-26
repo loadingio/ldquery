@@ -45,7 +45,7 @@
       },
       parent: function(s, e){
         var n;
-        e == null && (e = document);
+        e == null && (e = null);
         n = this;
         while (n && n !== e) {
           n = n.parentNode;

@@ -1,5 +1,10 @@
 # Change Logs
 
+## v2.1.0
+
+ - let `parent` by default search up to null to support isolated DOM tree.
+
+
 ## v2.0.0
 
  - use `lderror` instead `ldError` ( need lderror >=0.1.0 )

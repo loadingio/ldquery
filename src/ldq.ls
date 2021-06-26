@@ -17,7 +17,8 @@ if !(ld$?) =>
         throw e
     index: -> Array.from(@parentNode.childNodes).indexOf(@)
     child: -> Array.from(@childNodes)
-    parent: (s, e = document) ->
+    # e = null ( instead of undefined ) so we can scope node under isolated DOM tree.
+    parent: (s, e = null) ->
       n = @; while n and n != e => n = n.parentNode # must under e
       if n != e => return null
       # if no selector - we are testing if s is under e.
