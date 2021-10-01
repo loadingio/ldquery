@@ -27,7 +27,12 @@ if !(ld$?) =>
       n = @; while n and n != e and (!n.matches or (n.matches and !n.matches(s))) => n = n.parentNode
       if n == e and (!e.matches or !e.matches(s)) => return null
       return n
-    cls: (o) -> for k,v of o => @classList[if v => \add else \remove] k
+    cls: (o,p,n) ->
+      if typeof(o) == \object =>
+        for k,v of o => @classList[if v => \add else \remove] k
+      else
+        for [l,v] in [[p,!!o], [n,!o]] => (if Array.isArray(l) => l else [l]).map ~>
+          @classList.toggle it, v
     attr: (n,v) ->
       if typeof(n) == \object => (for k,v of n => @setAttribute(k,v))
       else if !v? => @getAttribute(n) else @setAttribute n, v

@@ -42,7 +42,12 @@ ldquery provides following functions:
  * fetch: fetch API helper. 
  * xhr: XMLHttpRequest API helper.
  * json(data): handy function to convert things to object.
-
+ * cls(o,p,n): handy function for setting classes.
+   - o: either object or value. 
+     - object: class name / on,off pair
+     - value: true to toggle classes in p on, and classes in n off. vice versa.
+   - p: positive class list ( toggled when o is true )
+   - n: negative class list ( toggled when o is false )
 invoke these functions with ld$, e.g., 
 
 `

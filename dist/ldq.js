@@ -65,13 +65,26 @@
         }
         return n;
       },
-      cls: function(o){
-        var k, v, results$ = [];
-        for (k in o) {
-          v = o[k];
-          results$.push(this.classList[v ? 'add' : 'remove'](k));
+      cls: function(o, p, n){
+        var k, v, i$, ref$, len$, ref1$, l, results$ = [], results1$ = [], this$ = this;
+        if (typeof o === 'object') {
+          for (k in o) {
+            v = o[k];
+            results$.push(this.classList[v ? 'add' : 'remove'](k));
+          }
+          return results$;
+        } else {
+          for (i$ = 0, len$ = (ref$ = [[p, !!o], [n, !o]]).length; i$ < len$; ++i$) {
+            ref1$ = ref$[i$], l = ref1$[0], v = ref1$[1];
+            results1$.push((Array.isArray(l)
+              ? l
+              : [l]).map(fn$));
+          }
+          return results1$;
         }
-        return results$;
+        function fn$(it){
+          return this$.classList.toggle(it, v);
+        }
       },
       attr: function(n, v){
         var k, results$ = [];

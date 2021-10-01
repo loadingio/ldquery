@@ -2,7 +2,7 @@
 rm -rf dist
 mkdir -p dist
 echo "Transpiling src/ldq.ls -> dist/ldq.js ... "
-npx lsc -cp src/ldq.ls > dist/ldq.js
+./node_modules/.bin/lsc -cp src/ldq.ls > dist/ldq.js
 echo "Uglifying ldq.js"
-npx uglifyjs dist/ldq.js > dist/ldq.min.js
+./node_modules/.bin/uglifyjs dist/ldq.js > dist/ldq.min.js
 echo "Done."

@@ -1,5 +1,11 @@
 # Change Logs
 
+## v2.2.0
+
+ - support positive and negative list in `cls`.
+ - make build faster
+
+
 ## v2.1.0
 
  - let `parent` by default search up to null to support isolated DOM tree.
