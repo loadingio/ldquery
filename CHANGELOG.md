@@ -1,10 +1,5 @@
 # Change Logs
 
-## v2.2.1
-
- - rename to `ldquery` for naming alignment with other packages.
-
-
 ## v2.2.0
 
  - support positive and negative list in `cls`.

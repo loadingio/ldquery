@@ -1,9 +1,9 @@
 {
   "author": "zbryikt",
-  "name": "ldquery",
+  "name": "@loadingio/ldquery",
   "description": "lite jQuery-like HTMLElement shorthands",
   "license": "MIT",
-  "version": "2.2.1",
+  "version": "2.2.0",
   "files": [
     "dist/**/*"
   ],
