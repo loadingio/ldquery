@@ -7,7 +7,7 @@ lightweight DOM Helpers in Vanilla JS.
 
 install via npm:
 
-    npm install @loadingio/ldquery
+    npm install ldquery
 
 or, download it from github:
 

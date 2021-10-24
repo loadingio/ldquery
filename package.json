@@ -1,16 +1,16 @@
 {
   "author": "zbryikt",
-  "name": "@loadingio/ldquery",
+  "name": "ldquery",
   "description": "lite jQuery-like HTMLElement shorthands",
   "license": "MIT",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "files": [
     "dist/**/*"
   ],
-  "homepage": "https://github.com/loadingio/ldQuery",
+  "homepage": "https://github.com/loadingio/ldquery",
   "repository": {
     "type": "git",
-    "url": "https://github.com/loadingio/ldQuery"
+    "url": "https://github.com/loadingio/ldquery"
   },
   "engines": {
     "node": ">=10.14.1",
