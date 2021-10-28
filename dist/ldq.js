@@ -60,7 +60,7 @@
         while (n && n !== e && (!n.matches || (n.matches && !n.matches(s)))) {
           n = n.parentNode;
         }
-        if (n === e && (!e.matches || !e.matches(s))) {
+        if (n === e && (!e || !e.matches || !e.matches(s))) {
           return null;
         }
         return n;

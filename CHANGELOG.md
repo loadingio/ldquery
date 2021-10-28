@@ -1,5 +1,10 @@
 # Change Logs
 
+## v2.2.1
+
+ - fix bug: should check against `null` of ending element in `parent` before accessing it.
+
+
 ## v2.2.0
 
  - support positive and negative list in `cls`.

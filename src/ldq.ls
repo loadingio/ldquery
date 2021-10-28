@@ -25,7 +25,7 @@ if !(ld$?) =>
       if !s => return @
       # must match s selector
       n = @; while n and n != e and (!n.matches or (n.matches and !n.matches(s))) => n = n.parentNode
-      if n == e and (!e.matches or !e.matches(s)) => return null
+      if n == e and (!e or !e.matches or !e.matches(s)) => return null
       return n
     cls: (o,p,n) ->
       if typeof(o) == \object =>
