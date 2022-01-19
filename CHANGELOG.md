@@ -1,5 +1,13 @@
 # Change Logs
 
+## v3.0.0
+
+ - remove `ldq.js`, `ldq.min.js`, use `index.js`, `index.min.js` instead
+ - use minimized dist file as main / browser default file
+ - further minimize minimized file
+ - update dev dependencies
+
+
 ## v2.2.1
 
  - fix bug: should check against `null` of ending element in `parent` before accessing it.
