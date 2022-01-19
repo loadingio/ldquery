@@ -50,44 +50,33 @@ ldquery provides following functions:
    - n: negative class list ( toggled when o is false )
 invoke these functions with ld$, e.g., 
 
-`
     ld$.find(document.body, '.btn', 0) 
-`
 
 or ignore the first parameter if it's document:
 
-`
     ld$.find('.btn', 0)  /* equivalent to ld$.find(document, '.btn', 0) */
-`
 
 
 It also provides in wrapper style:
 
-`
     ld$(document.body).find('.btn', 0)
-`
 
 
 While it's not a good idea but you can pollute the native DOM for a more intuitive way to use these functions:
 
-`
     # in livescript syntax
     HTMLElement.prototype <<< ld$obj.prototype
-`
 
 This could be enabled by remove the comment mark in corresponding line inside ldq.ls.
-
 
 
 ## Fetch
 
 ldquery wraps fetch api with promise-based error handling and some additional parameter.
 
-`
     ld$.fetch(<URL>, <RAWOPTION>, <LDQOPTION>)
       .then ->  ...
       .catch (e) -> # use e.data to get raw response from fetch
-`
 
 Common raw options:
 
@@ -115,9 +104,8 @@ Common ldquery Options:
 
 You can also config global headers by updating values in ld$.fetch.headers:
 
-`
     ld$.fetch.headers["X-CSRF-TOKEN"] = ...
-`
+
 
 ## XMLHttpRequest
 
@@ -125,11 +113,9 @@ While `fetch` is newer than XMLHttpRequest, for now XMLHttpRequest does better i
 
 Using `xhr` is almost identical with using `fetch`:
 
-`
     ld$.xhr(<URL>, <RAWOPTION>, <LDQOPTION>)
       .then ->  ...
       .catch (e) -> # use e.data to get raw response from fetch
-`
 
 Yet it accepts one additional ldquery option:
 
