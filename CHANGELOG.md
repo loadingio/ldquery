@@ -1,5 +1,10 @@
 # Change Logs
 
+## v3.0.1
+
+ - release with compact directory structure
+
+
 ## v3.0.0
 
  - remove `ldq.js`, `ldq.min.js`, use `index.js`, `index.min.js` instead
