@@ -3,7 +3,7 @@
   "name": "@loadingio/ldquery",
   "description": "lite jQuery-like HTMLElement shorthands",
   "license": "MIT",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "browser": "dist/index.min.js",
   "main": "dist/index.min.js",
   "files": [
@@ -24,6 +24,6 @@
     "uglify-js": "^3.13.1"
   },
   "dependencies": {
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^3.2.0"
   }
 }

@@ -1,5 +1,10 @@
 # Change Logs
 
+## v3.0.2
+
+ - upgrade `node-fetch` to `3.2.0` to resolve vulnerability.
+
+
 ## v3.0.1
 
  - release with compact directory structure
