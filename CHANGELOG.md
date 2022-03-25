@@ -1,5 +1,11 @@
 # Change Logs
 
+## v3.0.3
+
+ - downgrade `node-fetch` to `2.6.7` for working with `require`
+ - upgrade modules for vulnerabilities fixing
+
+
 ## v3.0.2
 
  - upgrade `node-fetch` to `3.2.0` to resolve vulnerability.
