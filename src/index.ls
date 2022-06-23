@@ -67,7 +67,7 @@ if !(ld$?) =>
         # see "error" section in README.
         rej ajax-err(1006, "timeout")
         h := null
-      ), (opt.timeout or (20 * 1000))
+      ), (opt.timeout or (40 * 1000))
       fetch(u, c)
         .then (v) ->
           if !h => return

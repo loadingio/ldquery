@@ -1,5 +1,10 @@
 # Change Logs
 
+## v3.0.4
+
+ - extend default timeout from 20s to 40s to reduce some possibly edge cases
+
+
 ## v3.0.3
 
  - downgrade `node-fetch` to `2.6.7` for working with `require`

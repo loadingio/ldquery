@@ -3,7 +3,7 @@
   "name": "@loadingio/ldquery",
   "description": "lite jQuery-like HTMLElement shorthands",
   "license": "MIT",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "browser": "dist/index.min.js",
   "main": "dist/index.min.js",
   "files": [

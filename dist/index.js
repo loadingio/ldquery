@@ -162,7 +162,7 @@
           h = setTimeout(function(){
             rej(ajaxErr(1006, "timeout"));
             return h = null;
-          }, opt.timeout || 20 * 1000);
+          }, opt.timeout || 40 * 1000);
           return fetch(u, c).then(function(v){
             if (!h) {
               return;
