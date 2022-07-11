@@ -120,7 +120,9 @@
     };
     xhrpar = function(u, o, p){
       var c, that, k, v;
-      c = import$({}, o);
+      c = import$({
+        credentials: 'same-origin'
+      }, o);
       if (p.json) {
         c.body = JSON.stringify(p.json);
         (c.headers || (c.headers = {}))['Content-Type'] = 'application/json; charset=UTF-8';

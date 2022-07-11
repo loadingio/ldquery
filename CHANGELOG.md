@@ -1,5 +1,10 @@
 # Change Logs
 
+## v3.0.5 (upcoming)
+
+ - add `credentials` default value `same-origin` in fetch api
+
+
 ## v3.0.4
 
  - extend default timeout from 20s to 40s to reduce some possibly edge cases

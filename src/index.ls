@@ -47,7 +47,9 @@ if !(ld$?) =>
   ns = {svg: "http://www.w3.org/2000/svg"}
 
   xhrpar = (u, o, p) ->
-    c = {} <<< o
+    # set credentials to default value `sample-origin`
+    # to prevent from `omit` default value in earlier version of browsers.
+    c = {credentials: \same-origin} <<< o
     if p.json =>
       c <<< body: JSON.stringify(p.json)
       c.{}headers['Content-Type'] = 'application/json; charset=UTF-8'
