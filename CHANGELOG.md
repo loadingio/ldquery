@@ -1,8 +1,9 @@
 # Change Logs
 
-## v3.0.5 (upcoming)
+## v3.0.5
 
  - add `credentials` default value `same-origin` in fetch api
+ - upgrade fedep for fixing vulnerability in dependency
 
 
 ## v3.0.4
