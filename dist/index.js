@@ -233,9 +233,9 @@
         ref$ = xhrpar(url, o, opt), u = ref$.u, c = ref$.c;
         x = new XMLHttpRequest();
         x.onreadystatechange = function(){
-          var ret, e;
+          var ref$, ret, e;
           if (x.readyState === XMLHttpRequest.DONE) {
-            if (x.status === 200) {
+            if ((ref$ = x.status) === 200 || ref$ === 201 || ref$ === 202) {
               try {
                 ret = opt.type === 'json'
                   ? JSON.parse(x.responseText)

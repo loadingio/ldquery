@@ -102,7 +102,9 @@ if !(ld$?) =>
     x = new XMLHttpRequest!
     x.onreadystatechange = ->
       if x.readyState == XMLHttpRequest.DONE =>
-        if x.status == 200 =>
+        # some services may respond like 201 (e.g., azure blob service, when creating a new blob)
+        # so we won't want to consider them as error.
+        if x.status in [200, 201, 202] =>
           try
             ret = if opt.type == \json => JSON.parse(x.responseText) else x.responseText
           catch e

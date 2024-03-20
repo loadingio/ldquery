@@ -1,5 +1,10 @@
 # Change Logs
 
+## v3.0.6
+
+ - consider xhr status code as success if it is 201 or 202
+
+
 ## v3.0.5
 
  - add `credentials` default value `same-origin` in fetch api
