@@ -1,5 +1,12 @@
 # Change Logs
 
+## v3.0.7 (upcoming)
+
+ - xhr: extend success status from 200 ~ 202 to 200 ~ 300
+ - xhr: add additional check before accessing fields
+ - xhr: add additional handler for error / abort / timeout events
+
+
 ## v3.0.6
 
  - consider xhr status code as success if it is 201 or 202

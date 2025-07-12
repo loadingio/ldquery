@@ -100,18 +100,25 @@ if !(ld$?) =>
   ld$.xhr = (url, o = {}, opt = {}) -> new Promise (res, rej) ->
     {u,c} = xhrpar(url,o,opt)
     x = new XMLHttpRequest!
+    done = false
     x.onreadystatechange = ->
       if x.readyState == XMLHttpRequest.DONE =>
+        if done => return
+        done := true
         # some services may respond like 201 (e.g., azure blob service, when creating a new blob)
         # so we won't want to consider them as error.
-        if x.status in [200, 201, 202] =>
+        if +x.status >= 200 and +x.status < 300 =>
           try
-            ret = if opt.type == \json => JSON.parse(x.responseText) else x.responseText
+            ret = if opt.type == \json and x.responseText => JSON.parse(x.responseText) else x.responseText
           catch e
-            return rej ajax-err(x.status, x.responseText )
+            return rej ajax-err(x.status, x.responseText)
           return res ret
-        else return rej ajax-err(x.status, x.responseText )
-    x.onloadstart = -> opt.progress {percent: 0, val: 0, len: 0}
+        else
+          return rej ajax-err(x.status, x.responseText)
+    x.onloadstart = -> if opt.progress => opt.progress {percent: 0, val: 0, len: 0}
+    x.onerror = -> if !done => done := true; rej ajax-err 1046
+    x.onabort = -> if !done => done := true; rej ajax-err 1047
+    x.ontimeout = -> if !done => done := true; rej ajax-err 1006
     if opt.progress =>
       p = (evt) ->
         [val,len] = [evt.loaded, evt.total]

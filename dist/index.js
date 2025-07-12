@@ -229,15 +229,20 @@
       o == null && (o = {});
       opt == null && (opt = {});
       return new Promise(function(res, rej){
-        var ref$, u, c, x, p, k, v;
+        var ref$, u, c, x, done, p, k, v;
         ref$ = xhrpar(url, o, opt), u = ref$.u, c = ref$.c;
         x = new XMLHttpRequest();
+        done = false;
         x.onreadystatechange = function(){
-          var ref$, ret, e;
+          var ret, e;
           if (x.readyState === XMLHttpRequest.DONE) {
-            if ((ref$ = x.status) === 200 || ref$ === 201 || ref$ === 202) {
+            if (done) {
+              return;
+            }
+            done = true;
+            if (+x.status >= 200 && +x.status < 300) {
               try {
-                ret = opt.type === 'json'
+                ret = opt.type === 'json' && x.responseText
                   ? JSON.parse(x.responseText)
                   : x.responseText;
               } catch (e$) {
@@ -251,11 +256,31 @@
           }
         };
         x.onloadstart = function(){
-          return opt.progress({
-            percent: 0,
-            val: 0,
-            len: 0
-          });
+          if (opt.progress) {
+            return opt.progress({
+              percent: 0,
+              val: 0,
+              len: 0
+            });
+          }
+        };
+        x.onerror = function(){
+          if (!done) {
+            done = true;
+            return rej(ajaxErr(1046));
+          }
+        };
+        x.onabort = function(){
+          if (!done) {
+            done = true;
+            return rej(ajaxErr(1047));
+          }
+        };
+        x.ontimeout = function(){
+          if (!done) {
+            done = true;
+            return rej(ajaxErr(1006));
+          }
         };
         if (opt.progress) {
           p = function(evt){
