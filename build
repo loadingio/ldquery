@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-rm -rf dist
-mkdir -p dist
-echo "Transpiling src/index.ls -> dist/index.js ... "
-./node_modules/.bin/lsc -cp --no-header src/index.ls > dist/index.js
-echo "Uglifying index.js"
-./node_modules/.bin/uglifyjs dist/index.js -c -m > dist/index.min.js
-echo "Done."
