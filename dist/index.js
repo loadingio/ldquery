@@ -172,17 +172,23 @@
             clearTimeout(h);
             if (!(v && v.ok)) {
               return v.clone().text().then(function(t){
-                var json, e;
+                var withHeaders, json, e;
+                withHeaders = function(e){
+                  return Object.defineProperty(e, 'headers', {
+                    value: v.headers,
+                    enumerable: false
+                  });
+                };
                 try {
                   json = JSON.parse(t);
                   if (json && json.name === 'lderror') {
-                    return rej(import$(ajaxErr(v.status, t), json));
+                    return rej(withHeaders(import$(ajaxErr(v.status, t), json)));
                   }
                 } catch (e$) {
                   e = e$;
                   json = null;
                 }
-                return rej(ajaxErr(v.status, t, json));
+                return rej(withHeaders(ajaxErr(v.status, t, json)));
               });
             } else {
               return res(opt.type != null ? v[opt.type]() : v);

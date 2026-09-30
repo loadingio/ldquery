@@ -75,15 +75,19 @@ if !(ld$?) =>
           if !h => return
           clearTimeout h
           if !(v and v.ok) => v.clone!text!then (t) ->
+            # response headers, for telling apart errors with the same status ( e.g., a proxy
+            # or CDN challenge vs. our own 403 ). non-enumerable so it stays out of error
+            # serialization / logging.
+            with-headers = (e) -> Object.defineProperty e, \headers, {value: v.headers, enumerable: false}
             try
               json = JSON.parse(t)
               if (json and json.name == \lderror) =>
                 # see "error" section in README.
-                return rej(ajax-err(v.status, t) <<< json)
+                return rej(with-headers(ajax-err(v.status, t) <<< json))
             catch e
               json = null
             # see "error" section in README.
-            return rej( ajax-err(v.status, t, json) )
+            return rej( with-headers(ajax-err(v.status, t, json)) )
           else res(if opt.type? => v[opt.type]! else v)
         .catch (e) ->
           clearTimeout h

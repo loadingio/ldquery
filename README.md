@@ -135,6 +135,7 @@ ld$.fetch doesn't depend on ldError, but it indeed returns ldError compatible er
  * code: http code. ( optional )
  * data: returned data
  * json: parsed json from returned data, if any ( optional )
+ * headers: `Headers` of the failed response ( fetch only; non-enumerable, so it won't show up when the error is serialized )
 
 When request failed, ld$.fetch will try to parse returned data as json, and check if there is a field "name" with value "ldError". If "ldError" name field exists, this object will be used directly to construct the Error object.
 
